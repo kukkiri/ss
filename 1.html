@@ -1,0 +1,39 @@
+<head><title>승현 전용 수강신청 서버시간</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /></head>
+<h2>승현 전용 수강신청 서버시간</h2>
+<form method="get">
+	<input name="url" type="text" value="http://sugang.korea.ac.kr/index2.jsp" size="40" disabled/>&nbsp;&nbsp;<!--<input type="submit" value="Submit"/>--><input type="button" value="클릭" onClick="location.reload();" />
+</form>
+<font size="5"><script>
+document.write("<div id='divservertime'>&nbsp;</div>");
+var ServerTime=new Date("Tue, 21 Aug 2018 06:04:14 GMT");
+//Date.getFullYear()//YYYY,getMonth()//MM/0~11,getDate()//DD,getDay()//0:Sunday/0~6,getHours(),getMinutes(),getSeconds(),getMilliseconds(),getTime()//Timestamp,set~();
+function RefreshServerTime(){
+ServerTime.setSeconds(Number(Number(ServerTime.getSeconds())+Number(1)));
+document.getElementById("divservertime").innerHTML=ServerTime.getFullYear() + "-" + Number(Number(ServerTime.getMonth())+Number(1)) + "-" + ServerTime.getDate() + " " + ServerTime.getHours() + ":" + ServerTime.getMinutes() + ":" + ServerTime.getSeconds();
+//setTimeout("RefreshServerTime()",1000);
+return true;
+}
+document.getElementById("divservertime").innerHTML=ServerTime.getFullYear() + "-" + Number(Number(ServerTime.getMonth())+Number(1)) + "-" + ServerTime.getDate() + " " + ServerTime.getHours() + ":" + ServerTime.getMinutes() + ":" + ServerTime.getSeconds();
+var Timer = setInterval("RefreshServerTime()",1000); //clearInterval(Timer);
+</script></font>
+<br><br>
+시보 주기: <input type="checkbox" id="tb1" checked>&nbsp;매시 정각&nbsp;&nbsp;&nbsp;<input type="checkbox" id="tb2">&nbsp;1분 전&nbsp;&nbsp;&nbsp;<input type="checkbox" id="tb3">&nbsp;2분 전&nbsp;&nbsp;&nbsp;<input type="checkbox" id="tb4">&nbsp;3분 전&nbsp;&nbsp;&nbsp;
+<audio id="alarmVoice" src="timebell.mp3" controls preload="auto" autobuffer style="display:none"></audio>
+<script>
+
+	function alarmTimer(){
+		var sp1 = document.getElementById("divservertime").innerHTML.split(" ");
+		var sp2 = sp1[1].split(":");
+		if((document.getElementById("tb1").checked) && (sp2[1]==59 && sp2[2]==57)) document.getElementById("alarmVoice").play();
+		if((document.getElementById("tb1").checked && document.getElementById("tb2").checked) && (sp2[1]==58 && sp2[2]==57)) document.getElementById("alarmVoice").play();
+		if((document.getElementById("tb1").checked && document.getElementById("tb3").checked) && (sp2[1]==57 && sp2[2]==57)) document.getElementById("alarmVoice").play();
+		if((document.getElementById("tb1").checked && document.getElementById("tb4").checked) && (sp2[1]==56 && sp2[2]==57)) document.getElementById("alarmVoice").play();
+		if((document.getElementById("tb5").checked) && (sp2[1]==29 && sp2[2]==57)) document.getElementById("alarmVoice").play();
+		if((document.getElementById("tb5").checked && document.getElementById("tb2").checked) && (sp2[1]==28 && sp2[2]==57)) document.getElementById("alarmVoice").play();
+		if((document.getElementById("tb5").checked && document.getElementById("tb3").checked) && (sp2[1]==27 && sp2[2]==57)) document.getElementById("alarmVoice").play();
+		if((document.getElementById("tb5").checked && document.getElementById("tb4").checked) && (sp2[1]==26 && sp2[2]==57)) document.getElementById("alarmVoice").play();
+}
+	var Timer2 = setInterval("alarmTimer()",100);
+</script>
+<br><br><hr>
+<iframe src="kucnt.php" />
